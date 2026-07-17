@@ -8,8 +8,9 @@ import { usePathname } from "next/navigation";
 interface PageTitleProps {
   title: string;
   description?: string;
+  onAddTask?: () => void;
 }
-const PageTitle = ({ title, description }: PageTitleProps) => {
+const PageTitle = ({ title, description, onAddTask }: PageTitleProps) => {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [listView, setListView] = useState(false);
 
@@ -47,11 +48,13 @@ const PageTitle = ({ title, description }: PageTitleProps) => {
         </div>
       ) : (
         <div className="flex flex-row gap-2">
-          <div>
-            <button className="flex flex-row gap-2  justify-center items-center  shadow-lg rounded-md bg-linear-to-r from-blue-500 to-blue-700 px-3 py-1 text-white font-semibold">
-              <Plus size={22} /> Add Tasks
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={onAddTask}
+            className="flex flex-row gap-1 rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700"
+          >
+            <Plus size={20} /> Add Task
+          </button>
           <div>
             <button
               className="flex flex-row gap-2  justify-center items-center  shadow-lg rounded-md bg-linear-to-r from-green-300 to-green-500 px-2 py-1 text-white font-semibold"

@@ -180,7 +180,7 @@ export function Dropdown<T extends string = string>({
               width: position.width,
             }}
             className="
-              z-[99999]
+              z-99999
               max-h-64
               overflow-auto
               rounded-xl

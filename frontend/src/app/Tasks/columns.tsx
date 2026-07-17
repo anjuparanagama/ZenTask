@@ -11,10 +11,13 @@ export type Task = {
   dueDate: string;
   priority: "Low" | "Medium" | "High";
   status: "To Do" | "In Progress" | "Completed" | "Overdue";
+  onEdit?: () => void;
+  onDelete?: () => void;
 };
 
 export const createColumns = (
   updateStatus: (id: number, status: Task["status"]) => void,
+  onEdit: (task: Task) => void,
 ): ColumnDef<Task>[] => [
   {
     accessorKey: "title",
@@ -115,10 +118,10 @@ export const createColumns = (
       return (
         <div className="flex items-center gap-2">
           <button
-            onClick={() => console.log("Edit", task.id)}
+            onClick={() => onEdit(task)}
             className="
               rounded-lg
-              
+              p-2
               text-blue-600
               transition
               hover:bg-blue-50
