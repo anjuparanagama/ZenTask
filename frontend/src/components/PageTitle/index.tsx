@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CalendarDays, Clock } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import { format } from "date-fns";
 
-const PageTitle = () => {
+interface PageTitleProps {
+  title: string;
+  description?: string;
+}
+const PageTitle = ({ title, description }: PageTitleProps) => {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -19,26 +23,23 @@ const PageTitle = () => {
 
   return (
     <div className="flex items-center justify-between">
-      {/* Left Content */}
       <div>
-        <h1 className="bg-gradient-to-r from-emerald-700 via-green-600 to-teal-500 bg-clip-text text-3xl font-extrabold tracking-tight text-transparent">
-          Dashboard
+        <h1 className="bg-linear-to-r from-emerald-700 via-green-600 to-teal-500 bg-clip-text text-2xl font-semibold tracking-tight text-transparent">
+          {title || "Welcome Back"}
         </h1>
-
-        <p className="mt-1 text-sm text-gray-500">
-          Overview of your activities and performance
+        <p className=" text-sm text-gray-500">
+          {description ||
+            "Here is an overview of your dashboard and recent activities."}
         </p>
       </div>
 
-      {/* Date Time */}
-      <div className="flex items-center gap-2 ">
-        <CalendarDays size={20} />
+      <div className="flex items-center gap-2 border border-gray-200 rounded-md px-3 py-2 shadow-sm">
+        <CalendarDays size={18} />
         <p className="text-sm font-semibold text-gray-700">
-          {currentTime ? format(currentTime, "EEEE, MMM dd") : "Loading..."}
+          {currentTime
+            ? format(currentTime, "dd MMMM yyyy, EEEE")
+            : "Loading..."}
         </p>
-        <div className="flex items-end justify-end gap-1 text-xs text-gray-500">
-          {currentTime ? format(currentTime, "hh:mm:ss a") : "--:--:--"}
-        </div>
       </div>
     </div>
   );
