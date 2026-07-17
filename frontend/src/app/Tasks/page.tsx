@@ -6,6 +6,8 @@ import DataTable from "@/components/Table";
 import { createColumns, type Task } from "./columns";
 import { tasks as initialTasks } from "./data";
 import TaskForm from "./components/TaskForm";
+import ConfirmModal from "@/components/ConfirmationModal";
+import { Trash2 } from "lucide-react";
 
 type TaskPriority = Task["priority"];
 
@@ -28,7 +30,9 @@ const TasksPage = () => {
 
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [deletingTask, setDeletingTask] = useState<Task | null>(null);
   const [form, setForm] = useState<NewTaskForm>(emptyForm);
 
   const columns = useMemo(() => {
@@ -55,6 +59,10 @@ const TasksPage = () => {
         });
         setIsEditOpen(true);
       },
+      (task) => {
+        setDeletingTask(task);
+        setIsDeleteOpen(true);
+      },
     );
   }, []);
 
@@ -69,7 +77,9 @@ const TasksPage = () => {
   const resetAndClose = () => {
     setIsAddOpen(false);
     setIsEditOpen(false);
+    setIsDeleteOpen(false);
     setEditingTask(null);
+    setDeletingTask(null);
     setForm(emptyForm);
   };
 
@@ -108,6 +118,13 @@ const TasksPage = () => {
     resetAndClose();
   };
 
+  const deleteTask = () => {
+    if (!deletingTask) return;
+
+    setTasks((prev) => prev.filter((task) => task.id !== deletingTask.id));
+    resetAndClose();
+  };
+
   return (
     <div className="m-4 gap-4 flex flex-col max-h-screen">
       <PageTitle title="Tasks" onAddTask={() => setIsAddOpen(true)} />
@@ -121,6 +138,18 @@ const TasksPage = () => {
         setForm={setForm}
         onClose={resetAndClose}
         onSubmit={isEditOpen ? updateTask : addTask}
+      />
+
+      <ConfirmModal
+        open={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        onConfirm={deleteTask}
+        title="Delete Task"
+        description="Are you sure you want to delete this task? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        confirmButtonColor="bg-red-600 hover:bg-red-700"
+        icon={<Trash2 size={32} className="text-red-600" />}
       />
     </div>
   );

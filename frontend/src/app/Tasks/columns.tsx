@@ -18,6 +18,7 @@ export type Task = {
 export const createColumns = (
   updateStatus: (id: number, status: Task["status"]) => void,
   onEdit: (task: Task) => void,
+  onDelete: (task: Task) => void,
 ): ColumnDef<Task>[] => [
   {
     accessorKey: "title",
@@ -132,7 +133,7 @@ export const createColumns = (
           </button>
 
           <button
-            onClick={() => console.log("Delete", task.id)}
+            onClick={() => onDelete(task)}
             className="
               rounded-lg 
               text-red-600
