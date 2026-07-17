@@ -761,6 +761,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@recharts/devtools@npm:^0.0.14":
+  version: 0.0.14
+  resolution: "@recharts/devtools@npm:0.0.14"
+  peerDependencies:
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+    recharts: ^3.8.0
+  checksum: 10c0/29e915f76bb69cd4ec5a819a4395c890228efe480ea507084d9d63c85cd1c89d5293f57ebe2fd2f3f01effb63ae56157fa2159799abe89116c8e905223f9ee92
+  languageName: node
+  linkType: hard
+
 "@reduxjs/toolkit@npm:^1.9.0 || 2.x.x":
   version: 2.12.0
   resolution: "@reduxjs/toolkit@npm:2.12.0"
@@ -2720,6 +2731,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "frontend@workspace:."
   dependencies:
+    "@recharts/devtools": "npm:^0.0.14"
     "@tailwindcss/postcss": "npm:^4"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"

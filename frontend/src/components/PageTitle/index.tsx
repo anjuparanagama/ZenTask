@@ -24,7 +24,7 @@ const PageTitle = ({ title, description }: PageTitleProps) => {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <h1 className="bg-linear-to-r from-emerald-700 via-green-600 to-teal-500 bg-clip-text text-2xl font-semibold tracking-tight text-transparent">
+        <h1 className="text-slate-900 bg-clip-text text-2xl font-semibold tracking-tight ">
           {title || "Welcome Back"}
         </h1>
         <p className=" text-sm text-gray-500">

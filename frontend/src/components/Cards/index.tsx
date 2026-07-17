@@ -1,25 +1,27 @@
-import { DollarSign } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 
 export default function StatCard({
-  icon: Icon = DollarSign,
-  amount = "$2,342",
-  label = "Total Income",
-  gradientFrom = "#7dd3fc",
-  gradientTo = "#3b82f6",
-  iconColor = "#3b82f6",
+  icon: Icon = ClipboardList,
+  amount = "245",
+  label = "Total Tasks",
+  gradientFrom = "#60a5fa",
+  gradientTo = "#2563eb",
+  iconColor = "#2563eb",
   textColor = "#ffffff",
-  waveColor = "rgba(255,255,255,0.22)",
+  waveColor = "rgba(255,255,255,0.18)",
   className = "",
 }) {
   return (
     <div
-      className={`relative w-auto h-28 rounded-2xl p-3.5 overflow-hidden shadow-md ${className}`}
+      className={`group relative h-28 rounded-2xl p-5 overflow-hidden shadow-sm 
+      transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${className}`}
       style={{
-        background: `linear-gradient(160deg, ${gradientFrom}, ${gradientTo})`,
+        background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
       }}
     >
+      {/* Background Shape */}
       <svg
-        className="absolute -bottom-2 -right-2 w-28 h-20"
+        className="absolute -right-5 -bottom-5 w-32 h-28 opacity-70"
         viewBox="0 0 120 90"
         preserveAspectRatio="none"
       >
@@ -29,23 +31,40 @@ export default function StatCard({
         />
       </svg>
 
-      <div className="relative z-10 w-8 h-8 rounded-lg bg-white flex items-center justify-center mb-4 shadow-sm">
-        <Icon className="w-4 h-4" style={{ color: iconColor }} />
+      {/* Icon */}
+      <div
+        className="absolute top-5 right-5 flex h-10 w-10 items-center 
+        justify-center rounded-xl bg-white/90 shadow-sm"
+      >
+        <Icon
+          className="h-5 w-5"
+          style={{
+            color: iconColor,
+          }}
+        />
       </div>
 
-      <div className="relative z-10">
-        <p
-          className="text-lg font-bold leading-tight"
-          style={{ color: textColor }}
-        >
-          {amount}
-        </p>
-        <p
-          className="text-[11px] mt-0.5 opacity-85"
-          style={{ color: textColor }}
-        >
-          {label}
-        </p>
+      {/* Content */}
+      <div className="relative z-10 flex h-full flex-col justify-between">
+        <div>
+          <p
+            className="text-3xl font-bold tracking-tight"
+            style={{
+              color: textColor,
+            }}
+          >
+            {amount}
+          </p>
+
+          <p
+            className="mt-1 text-sm font-medium opacity-90"
+            style={{
+              color: textColor,
+            }}
+          >
+            {label}
+          </p>
+        </div>
       </div>
     </div>
   );
