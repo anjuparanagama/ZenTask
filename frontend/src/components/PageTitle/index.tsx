@@ -27,13 +27,13 @@ const PageTitle = ({ title, description }: PageTitleProps) => {
         <h1 className="text-slate-900 bg-clip-text text-2xl font-semibold tracking-tight ">
           {title || "Welcome Back"}
         </h1>
-        <p className=" text-sm text-gray-500">
+        <p className=" text-sm text-gray-500 hidden sm:block">
           {description ||
             "Here is an overview of your dashboard and recent activities."}
         </p>
       </div>
 
-      <div className="flex items-center gap-2 border border-gray-200 rounded-md px-3 py-2 shadow-sm">
+      <div className="flex items-center gap-2 sm:border sm:border-gray-200 rounded-md px-3 py-2 sm:shadow-sm">
         <CalendarDays size={18} />
         <p className="text-sm font-semibold text-gray-700">
           {currentTime

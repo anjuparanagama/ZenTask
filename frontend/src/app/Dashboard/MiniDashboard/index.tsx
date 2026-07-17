@@ -8,7 +8,7 @@ import {
 
 export default function StatCardRow() {
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid sm:grid-cols-4 grid-cols-2 gap-4">
       <StatCard
         icon={ClipboardList}
         amount="245"
