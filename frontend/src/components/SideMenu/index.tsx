@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   LayoutGrid,
@@ -18,16 +20,17 @@ interface NavItem {
   id: string;
   label: string;
   icon: LucideIcon;
+  href: string;
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { id: "Dashboard", label: "Dashboard", icon: LayoutGrid },
-  { id: "tasks", label: "Tasks", icon: CheckSquare },
+  { id: "Dashboard", label: "Dashboard", icon: LayoutGrid, href: "/" },
+  { id: "tasks", label: "Tasks", icon: CheckSquare, href: "/Tasks" },
 ];
 
 const FOOTER_ITEMS: NavItem[] = [
-  { id: "settings", label: "Settings", icon: Settings },
-  { id: "logout", label: "Logout", icon: LogOut },
+  { id: "settings", label: "Settings", icon: Settings, href: "#" },
+  { id: "logout", label: "Logout", icon: LogOut, href: "#" },
 ];
 
 interface SidebarProps {
@@ -43,15 +46,12 @@ export default function Sidebar({
   collapsed,
   setCollapsed,
 }: SidebarProps) {
-  const [internalActive, setInternalActive] = useState<string>(
-    activeId ?? "Dashboard",
-  );
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
-  const active = activeId ?? internalActive;
+  const active = activeId ?? (pathname === "/Tasks" ? "tasks" : "Dashboard");
 
   const handleClick = (id: string) => {
-    setInternalActive(id);
     onNavigate?.(id);
     setMobileOpen(false);
   };
@@ -109,6 +109,48 @@ export default function Sidebar({
           </span>
         )}
       </button>
+    );
+  };
+
+  const renderNavLink = (
+    { id, label, icon: Icon, href }: NavItem,
+    isMobile = false,
+  ) => {
+    const isActive = active === id;
+    const isCollapsed = collapsed && !isMobile;
+
+    return (
+      <Link
+        key={id}
+        href={href}
+        onClick={() => handleClick(id)}
+        title={isCollapsed ? label : undefined}
+        className={`group relative flex items-center text-sm font-medium transition-all duration-200 ${
+          isCollapsed
+            ? "h-11 w-11 justify-center rounded-xl px-0 mx-auto"
+            : "w-full gap-3 rounded-xl px-3 py-2.5"
+        } ${
+          isActive
+            ? "bg-teal-500 text-white shadow-sm"
+            : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+        }`}
+      >
+        <Icon size={18} className="shrink-0" />
+
+        <span
+          className={`whitespace-nowrap overflow-hidden transition-all duration-200 ${
+            isCollapsed ? "max-w-0 opacity-0" : "max-w-full opacity-100"
+          }`}
+        >
+          {label}
+        </span>
+
+        {isCollapsed && (
+          <span className="pointer-events-none absolute left-full ml-2 whitespace-nowrap rounded-lg bg-gray-900 px-2 py-1 text-xs text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 z-50">
+            {label}
+          </span>
+        )}
+      </Link>
     );
   };
 
@@ -178,7 +220,7 @@ export default function Sidebar({
               </button>
             </div>
             <nav className="flex flex-col gap-2 p-4">
-              {NAV_ITEMS.map((item) => renderNavButton(item, false, true))}
+              {NAV_ITEMS.map((item) => renderNavLink(item, true))}
             </nav>
           </div>
 
@@ -224,7 +266,7 @@ export default function Sidebar({
           </div>
 
           <nav className="flex flex-col gap-1">
-            {NAV_ITEMS.map((item) => renderNavButton(item))}
+            {NAV_ITEMS.map((item) => renderNavLink(item))}
           </nav>
         </div>
 

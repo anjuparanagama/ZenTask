@@ -31,7 +31,7 @@ const priorityData = [
 
 export default function TaskPriorityBarChart() {
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm w-full">
+    <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm w-full pointer-events-none">
       <div className="mb-2">
         <h2 className="text-lg font-semibold text-gray-800">
           Task Priority Overview
