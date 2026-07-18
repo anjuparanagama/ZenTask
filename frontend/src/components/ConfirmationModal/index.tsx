@@ -28,7 +28,7 @@ export default function ConfirmModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm px-4">
       <div className="relative w-full max-w-100 rounded-2xl bg-white p-6 shadow-xl">
         {icon && <div className="mb-4 flex justify-center">{icon}</div>}
         <div className="text-center">

@@ -51,14 +51,7 @@ export default function DataTable<TData, TValue>({
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="
-                        px-6
-                        py-4
-                        text-left
-                        font-semibold
-                        text-slate-600
-                        whitespace-nowrap
-                      "
+                      className="px-6 py-3 text-left font-semibold text-slate-600 whitespace-nowrap "
                     >
                       {header.isPlaceholder
                         ? null
@@ -88,10 +81,7 @@ export default function DataTable<TData, TValue>({
                       <td
                         key={cell.id}
                         className="
-                          px-6
-                          py-2
-                          text-slate-700
-                          whitespace-nowrap
+                          px-6 py-2 text-slate-700 whitespace-nowrap
                         "
                       >
                         {flexRender(

@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import ConfirmModal from "@/components/ConfirmationModal";
 import {
   LayoutGrid,
   CheckSquare,
@@ -30,7 +31,8 @@ const NAV_ITEMS: NavItem[] = [
 
 const FOOTER_ITEMS: NavItem[] = [
   { id: "settings", label: "Settings", icon: Settings, href: "#" },
-  { id: "logout", label: "Logout", icon: LogOut, href: "/" },
+  // Logout is handled via confirmation modal in this component
+  { id: "logout", label: "Logout", icon: LogOut, href: "#/logout" },
 ];
 
 interface SidebarProps {
@@ -46,6 +48,13 @@ export default function Sidebar({
   collapsed,
   setCollapsed,
 }: SidebarProps) {
+  const router = useRouter();
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+
+  const openLogoutModal = () => {
+    setMobileOpen(false);
+    setLogoutModalOpen(true);
+  };
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
@@ -232,6 +241,21 @@ export default function Sidebar({
         </aside>
       </div>
 
+      <ConfirmModal
+        open={logoutModalOpen}
+        onClose={() => setLogoutModalOpen(false)}
+        onConfirm={() => {
+          setLogoutModalOpen(false);
+          router.push("/");
+        }}
+        title="Confirm Logout"
+        description="Are you sure you want to log out?"
+        confirmText="Logout"
+        cancelText="Cancel"
+        confirmButtonColor="bg-red-600 hover:bg-red-700"
+        icon={<LogOut size={32} className="text-red-600" />}
+      />
+
       {/* ===== Desktop sidebar===== */}
       <aside
         className={`fixed left-0 top-0 z-40 hidden h-screen flex-col justify-between  bg-white p-4 shadow-sm transition-all duration-200 md:flex ${
@@ -271,7 +295,40 @@ export default function Sidebar({
         </div>
 
         <div className="flex flex-col gap-1 border-t border-gray-100 pt-4">
-          {FOOTER_ITEMS.map((item) => renderNavButton(item, true))}
+          {FOOTER_ITEMS.map((item) =>
+            item.id === "logout" ? (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  setLogoutModalOpen(true);
+                }}
+                title={collapsed ? item.label : undefined}
+                className={`group relative flex items-center text-sm font-medium transition-all duration-200 ${
+                  collapsed
+                    ? "h-11 w-11 justify-center rounded-xl px-0 mx-auto"
+                    : "w-full gap-3 rounded-xl px-3 py-2.5"
+                } text-gray-500 hover:bg-gray-100 hover:text-gray-900`}
+              >
+                <item.icon size={18} className="shrink-0" />
+                <span
+                  className={`whitespace-nowrap overflow-hidden transition-all duration-200 ${
+                    collapsed ? "max-w-0 opacity-0" : "max-w-full opacity-100"
+                  }`}
+                >
+                  {item.label}
+                </span>
+                {collapsed && (
+                  <span className="pointer-events-none absolute left-full ml-2 whitespace-nowrap rounded-lg bg-gray-900 px-2 py-1 text-xs text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 z-50">
+                    {item.label}
+                  </span>
+                )}
+              </button>
+            ) : (
+              renderNavButton(item, true)
+            ),
+          )}
         </div>
       </aside>
     </>
