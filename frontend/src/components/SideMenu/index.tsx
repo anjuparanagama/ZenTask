@@ -24,13 +24,13 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { id: "Dashboard", label: "Dashboard", icon: LayoutGrid, href: "/" },
+  { id: "Dashboard", label: "Dashboard", icon: LayoutGrid, href: "/Dashboard" },
   { id: "tasks", label: "Tasks", icon: CheckSquare, href: "/Tasks" },
 ];
 
 const FOOTER_ITEMS: NavItem[] = [
   { id: "settings", label: "Settings", icon: Settings, href: "#" },
-  { id: "logout", label: "Logout", icon: LogOut, href: "#" },
+  { id: "logout", label: "Logout", icon: LogOut, href: "/" },
 ];
 
 interface SidebarProps {

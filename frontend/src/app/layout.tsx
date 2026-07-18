@@ -4,7 +4,7 @@ import "./globals.css";
 
 import SideMenu from "@/components/SideMenu";
 import SearchBar from "@/components/SearchBar";
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "@/components/Layout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,7 +27,7 @@ export default function RootLayout({
         className="h-full overflow-hidden bg-gray-50"
         suppressHydrationWarning
       >
-        <DashboardLayout>{children}</DashboardLayout>
+        {children}
       </body>
     </html>
   );

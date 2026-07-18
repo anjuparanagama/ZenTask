@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 
@@ -9,7 +10,30 @@ interface LoginFormProps {
 }
 
 export default function LoginForm({ onRegister }: LoginFormProps) {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      if (email && password) {
+        router.push("/Dashboard");
+        return;
+      }
+
+      throw new Error("Please enter your email and password");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Login failed");
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -37,7 +61,13 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
         </p>
       </div>
 
-      <form className="space-y-5">
+      <form className="space-y-5" onSubmit={handleSubmit}>
+        {error && (
+          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
+            {error}
+          </p>
+        )}
+
         {/* Email */}
 
         <div>
@@ -71,7 +101,10 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
 
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
+              required
               className="
                 w-full
                 bg-transparent
@@ -117,7 +150,10 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
 
             <input
               type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
+              required
               className="
                 w-full
                 bg-transparent
@@ -179,6 +215,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
 
         <button
           type="submit"
+          disabled={loading}
           className="
             flex
             w-full
@@ -194,9 +231,11 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
             transition
             hover:bg-teal-700
             active:scale-[0.98]
+            disabled:cursor-not-allowed
+            disabled:opacity-60
           "
         >
-          Sign In
+          {loading ? "Signing In..." : "Sign In"}
           <ArrowRight size={18} />
         </button>
       </form>
