@@ -1,11 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CalendarDays, Clock } from "lucide-react";
+import { CalendarDays, Plus, List, Grid2X2Plus } from "lucide-react";
 import { format } from "date-fns";
+import { usePathname } from "next/navigation";
 
-const PageTitle = () => {
+interface PageTitleProps {
+  title: string;
+  description?: string;
+  onAddTask?: () => void;
+}
+const PageTitle = ({ title, description, onAddTask }: PageTitleProps) => {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
+  const [listView, setListView] = useState(false);
 
   useEffect(() => {
     setCurrentTime(new Date());
@@ -17,29 +24,47 @@ const PageTitle = () => {
     return () => clearInterval(timer);
   }, []);
 
+  const pathname = usePathname();
+
   return (
     <div className="flex items-center justify-between">
-      {/* Left Content */}
       <div>
-        <h1 className="bg-gradient-to-r from-emerald-700 via-green-600 to-teal-500 bg-clip-text text-3xl font-extrabold tracking-tight text-transparent">
-          Dashboard
+        <h1 className="text-slate-900 bg-clip-text text-2xl font-semibold tracking-tight ">
+          {title || "Welcome Back"}
         </h1>
-
-        <p className="mt-1 text-sm text-gray-500">
-          Overview of your activities and performance
+        <p className=" text-sm text-gray-500 hidden sm:block">
+          {description ||
+            "Here is an overview of your dashboard and recent activities."}
         </p>
       </div>
-
-      {/* Date Time */}
-      <div className="flex items-center gap-2 ">
-        <CalendarDays size={20} />
-        <p className="text-sm font-semibold text-gray-700">
-          {currentTime ? format(currentTime, "EEEE, MMM dd") : "Loading..."}
-        </p>
-        <div className="flex items-end justify-end gap-1 text-xs text-gray-500">
-          {currentTime ? format(currentTime, "hh:mm:ss a") : "--:--:--"}
+      {pathname !== "/Tasks" ? (
+        <div className="flex items-center gap-2 sm:border sm:border-gray-200 rounded-md px-3 py-2 sm:shadow-sm">
+          <CalendarDays size={18} />
+          <p className="text-sm font-semibold text-gray-700">
+            {currentTime
+              ? format(currentTime, "dd MMMM yyyy, EEEE")
+              : "Loading..."}
+          </p>
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-row gap-2">
+          <button
+            type="button"
+            onClick={onAddTask}
+            className="flex flex-row gap-1 rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700"
+          >
+            <Plus size={20} /> Add Task
+          </button>
+          <div>
+            <button
+              className="flex flex-row gap-2  justify-center items-center  shadow-lg rounded-md bg-linear-to-r from-green-300 to-green-500 px-2 py-1 text-white font-semibold"
+              onClick={() => setListView(!listView)}
+            >
+              {listView ? <List size={22} /> : <Grid2X2Plus size={22} />}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -761,6 +761,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@recharts/devtools@npm:^0.0.14":
+  version: 0.0.14
+  resolution: "@recharts/devtools@npm:0.0.14"
+  peerDependencies:
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+    recharts: ^3.8.0
+  checksum: 10c0/29e915f76bb69cd4ec5a819a4395c890228efe480ea507084d9d63c85cd1c89d5293f57ebe2fd2f3f01effb63ae56157fa2159799abe89116c8e905223f9ee92
+  languageName: node
+  linkType: hard
+
 "@reduxjs/toolkit@npm:^1.9.0 || 2.x.x":
   version: 2.12.0
   resolution: "@reduxjs/toolkit@npm:2.12.0"
@@ -974,6 +985,25 @@ __metadata:
     postcss: "npm:^8.5.15"
     tailwindcss: "npm:4.3.2"
   checksum: 10c0/577998b219b5e209b1fdc33812f6024ff18b4fd43a0e5be9bba02c02ea593e10bcc776a6f5671780782f9ac29732b88cb185d0b944be009e19c1724c8d8b1970
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-table@npm:^8.21.3":
+  version: 8.21.3
+  resolution: "@tanstack/react-table@npm:8.21.3"
+  dependencies:
+    "@tanstack/table-core": "npm:8.21.3"
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 10c0/85d1d0fcb690ecc011f68a5a61c96f82142e31a0270dcf9cbc699a6f36715b1653fe6ff1518302a6d08b7093351fc4cabefd055a7db3cd8ac01e068956b0f944
+  languageName: node
+  linkType: hard
+
+"@tanstack/table-core@npm:8.21.3":
+  version: 8.21.3
+  resolution: "@tanstack/table-core@npm:8.21.3"
+  checksum: 10c0/40e3560e6d55e07cc047024aa7f83bd47a9323d21920d4adabba8071fd2d21230c48460b26cedf392588f8265b9edc133abb1b0d6d0adf4dae0970032900a8c9
   languageName: node
   linkType: hard
 
@@ -2720,7 +2750,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "frontend@workspace:."
   dependencies:
+    "@recharts/devtools": "npm:^0.0.14"
     "@tailwindcss/postcss": "npm:^4"
+    "@tanstack/react-table": "npm:^8.21.3"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
@@ -2730,6 +2762,7 @@ __metadata:
     eslint: "npm:^9"
     eslint-config-next: "npm:16.2.10"
     eslint-config-prettier: "npm:^10.1.8"
+    lottie-react: "npm:^2.4.1"
     lucide-react: "npm:^1.24.0"
     next: "npm:16.2.10"
     prettier: "npm:^3.9.5"
@@ -3580,6 +3613,25 @@ __metadata:
   bin:
     loose-envify: cli.js
   checksum: 10c0/655d110220983c1a4b9c0c679a2e8016d4b67f6e9c7b5435ff5979ecdb20d0813f4dec0a08674fcbdd4846a3f07edbb50a36811fd37930b94aaa0d9daceb017e
+  languageName: node
+  linkType: hard
+
+"lottie-react@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "lottie-react@npm:2.4.1"
+  dependencies:
+    lottie-web: "npm:^5.10.2"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/7f6a0a2cf2af25deabe7b4d4c9917e47d12016673613c59dcdd8ef52e10e914dd0c1f71d4a275d56aaba03fe9d85b333087f7c8d40a8f967ece4a0444c7a3cdf
+  languageName: node
+  linkType: hard
+
+"lottie-web@npm:^5.10.2":
+  version: 5.13.0
+  resolution: "lottie-web@npm:5.13.0"
+  checksum: 10c0/b463ad462169df3f7e04b7f3716274e269842554f1d72b8303ca7245628f2512982a59ae31698b3d57fbcda886228ae160fcb2aa518c6cecd8a95974db2458ee
   languageName: node
   linkType: hard
 

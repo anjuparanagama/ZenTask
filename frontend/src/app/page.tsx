@@ -1,15 +1,15 @@
-import Dashboard from "@/app/Dashboard";
-import SideMenu from "@/components/SideMenu";
-import SearchBar from "@/components/SearchBar";
+"use client";
+
+import { useState } from "react";
+import Auth from "./Auth/page";
+import SplashScreen from "@/components/SplashScreen";
 
 export default function Home() {
-  return (
-    <div className="flex h-screen bg-gray-50">
-      <SideMenu />
-      <div className="flex-1 overflow-y-auto items-start justify-start">
-        <SearchBar />
-        <Dashboard />
-      </div>
-    </div>
-  );
+  const [showSplash, setShowSplash] = useState(true);
+
+  if (showSplash) {
+    return <SplashScreen onFinish={() => setShowSplash(false)} />;
+  }
+
+  return <Auth />;
 }
