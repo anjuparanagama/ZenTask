@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   allTasksCount,
   getOverdueTaskCount,
+  priorityCounts,
 } from "../controllers/dashboard.controllers";
 import { protect } from "../middleware/auth.middleware";
 
@@ -11,5 +12,6 @@ router.use(protect);
 
 router.get("/all-tasks-count", allTasksCount);
 router.get("/overdue-tasks-count", getOverdueTaskCount);
+router.get("/priority-counts", priorityCounts);
 
 export default router;

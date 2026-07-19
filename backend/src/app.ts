@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import authRoutes from "./routes/auth.routes";
+import dashboardRoutes from "./routes/dashboard.controllers";
 import taskRoutes from "./routes/task.routes";
 
 const app = express();
@@ -19,6 +20,7 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/tasks", taskRoutes);
 
 export default app;

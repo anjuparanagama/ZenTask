@@ -202,17 +202,6 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
             <input type="checkbox" className="rounded" />
             Remember me
           </label>
-
-          <Link
-            href="#"
-            className="
-              font-medium
-              text-teal-600
-              hover:underline
-            "
-          >
-            Forgot password?
-          </Link>
         </div>
 
         {/* Login Button */}

@@ -6,12 +6,31 @@ import {
   AlertTriangle,
 } from "lucide-react";
 
-export default function StatCardRow() {
+type MiniDashboardProps = {
+  totalTasks?: number;
+  completedTasks?: number;
+  inProgressTasks?: number;
+  todoTasks?: number;
+  overdueTasks?: number;
+  isLoading?: boolean;
+};
+
+export default function StatCardRow({
+  totalTasks = 0,
+  completedTasks = 0,
+  inProgressTasks = 0,
+  todoTasks = 0,
+  overdueTasks = 0,
+  isLoading = false,
+}: MiniDashboardProps) {
+  const pendingTasks = inProgressTasks + todoTasks;
+  const formatAmount = (value: number) => (isLoading ? "..." : String(value));
+
   return (
     <div className="grid sm:grid-cols-4 grid-cols-2 gap-4">
       <StatCard
         icon={ClipboardList}
-        amount="245"
+        amount={formatAmount(totalTasks)}
         label="Total Tasks"
         gradientFrom="#60a5fa"
         gradientTo="#2563eb"
@@ -20,7 +39,7 @@ export default function StatCardRow() {
 
       <StatCard
         icon={CheckCircle}
-        amount="168"
+        amount={formatAmount(completedTasks)}
         label="Completed Tasks"
         gradientFrom="#6ee7b7"
         gradientTo="#059669"
@@ -29,7 +48,7 @@ export default function StatCardRow() {
 
       <StatCard
         icon={Clock3}
-        amount="52"
+        amount={formatAmount(pendingTasks)}
         label="Pending Tasks"
         gradientFrom="#fde68a"
         gradientTo="#f59e0b"
@@ -38,7 +57,7 @@ export default function StatCardRow() {
 
       <StatCard
         icon={AlertTriangle}
-        amount="25"
+        amount={formatAmount(overdueTasks)}
         label="Overdue Tasks"
         gradientFrom="#fca5a5"
         gradientTo="#dc2626"

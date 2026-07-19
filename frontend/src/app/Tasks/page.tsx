@@ -32,7 +32,7 @@ const TasksPage = () => {
 
   const columns = useMemo(
     () => createColumns(updateStatus, openEdit, openDelete),
-    [],
+    [updateStatus, openEdit, openDelete],
   );
 
   return (

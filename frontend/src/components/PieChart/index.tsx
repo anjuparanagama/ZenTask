@@ -9,11 +9,16 @@ import {
   TooltipIndex,
 } from "recharts";
 
-const taskData = [
+export type TaskStatusDatum = {
+  name: string;
+  value: number;
+  fill: string;
+};
+
+const defaultTaskData: TaskStatusDatum[] = [
   { name: "Completed", value: 65, fill: "#10B981" },
   { name: "In Progress", value: 20, fill: "#3B82F6" },
-  { name: "Pending", value: 10, fill: "#F59E0B" },
-  { name: "Overdue", value: 5, fill: "#EF4444" },
+  { name: "To Do", value: 10, fill: "#F59E0B" },
 ];
 
 const renderActiveShape = ({
@@ -114,9 +119,11 @@ const renderActiveShape = ({
 export default function TaskStatusPieChart({
   isAnimationActive = true,
   defaultIndex,
+  data = defaultTaskData,
 }: {
   isAnimationActive?: boolean;
   defaultIndex?: TooltipIndex;
+  data?: TaskStatusDatum[];
 }) {
   return (
     <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm pointer-events-none">
@@ -137,7 +144,7 @@ export default function TaskStatusPieChart({
         >
           <Pie
             activeShape={renderActiveShape}
-            data={taskData}
+            data={data}
             cx="50%"
             cy="50%"
             innerRadius={50}
@@ -152,7 +159,7 @@ export default function TaskStatusPieChart({
 
       {/* Legend */}
       <div className="-mt-2 grid grid-cols-2 gap-3 text-sm">
-        {taskData.map((item) => (
+        {data.map((item) => (
           <div
             key={item.name}
             className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2"

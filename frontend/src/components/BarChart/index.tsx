@@ -11,25 +11,37 @@ import {
   Cell,
 } from "recharts";
 
-const priorityData = [
+type PriorityBarDatum = {
+  priority: string;
+  tasks: number;
+  fill: string;
+};
+
+const defaultPriorityData: PriorityBarDatum[] = [
   {
     priority: "High",
-    tasks: 45,
+    tasks: 0,
     fill: "#EF4444",
   },
   {
     priority: "Medium",
-    tasks: 30,
+    tasks: 0,
     fill: "#F59E0B",
   },
   {
     priority: "Low",
-    tasks: 20,
+    tasks: 0,
     fill: "#10B981",
   },
 ];
 
-export default function TaskPriorityBarChart() {
+type TaskPriorityBarChartProps = {
+  data?: PriorityBarDatum[];
+};
+
+export default function TaskPriorityBarChart({
+  data = defaultPriorityData,
+}: TaskPriorityBarChartProps) {
   return (
     <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm w-full pointer-events-none">
       <div className="mb-2">
@@ -43,10 +55,10 @@ export default function TaskPriorityBarChart() {
       </div>
 
       {/* Chart */}
-      <div className="h-[250px] w-full">
+      <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={priorityData}
+            data={data}
             margin={{
               top: 10,
               right: 10,
@@ -75,7 +87,7 @@ export default function TaskPriorityBarChart() {
               barSize={45}
               activeBar={false}
             >
-              {priorityData.map((item) => (
+              {data.map((item) => (
                 <Cell key={item.priority} fill={item.fill} />
               ))}
             </Bar>
@@ -85,7 +97,7 @@ export default function TaskPriorityBarChart() {
 
       {/* Summary Cards */}
       <div className="mt-3 flex flex-wrap items-center justify-center gap-3">
-        {priorityData.map((item) => (
+        {data.map((item) => (
           <div
             key={item.priority}
             className="flex items-center justify-between gap-4 rounded-xl bg-gray-50 px-4 py-3"

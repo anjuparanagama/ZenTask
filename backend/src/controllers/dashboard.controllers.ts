@@ -9,9 +9,9 @@ export const allTasksCount = async (req: AuthRequest, res: Response) => {
     `
   SELECT
     COUNT(*) AS totalTasks,
-    SUM(status = 'Completed') AS completedTasks,
-    SUM(status = 'In Progress') AS inProgressTasks,
-    SUM(status = 'To Do') AS todoTasks
+    SUM(status = 'COMPLETED') AS completedTasks,
+    SUM(status = 'IN_PROGRESS') AS inProgressTasks,
+    SUM(status = 'TODO') AS todoTasks
   FROM tasks
   WHERE user_id = ?
   `,
@@ -38,4 +38,23 @@ export const getOverdueTaskCount = async (req: AuthRequest, res: Response) => {
   res.json({
     overdueTasks: rows[0].overdueTasks,
   });
+};
+
+export const priorityCounts = async (req: AuthRequest, res: Response) => {
+  const userId = req.user?.id;
+
+  const [rows]: any = await db.query(
+    `
+    SELECT
+      COUNT(*) AS totalTasks,
+      SUM(priority = 'HIGH') AS highPriorityTasks,
+      SUM(priority = 'MEDIUM') AS mediumPriorityTasks,
+      SUM(priority = 'LOW') AS lowPriorityTasks
+    FROM tasks
+    WHERE user_id = ?
+    `,
+    [userId],
+  );
+
+  res.json(rows[0]);
 };
