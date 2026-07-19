@@ -28,6 +28,11 @@ export const createColumns = (
   {
     accessorKey: "description",
     header: "Description",
+    cell: ({ row }) => {
+      const desc = row.original.description;
+      if (desc.length <= 50) return desc;
+      return <span title={desc}>{desc.slice(0, 50)}...</span>;
+    },
   },
 
   {

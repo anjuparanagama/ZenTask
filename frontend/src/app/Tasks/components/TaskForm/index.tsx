@@ -68,9 +68,10 @@ const TaskForm = ({
             onChange={(e) =>
               setForm((prev) => ({
                 ...prev,
-                title: e.target.value,
+                title: e.target.value.slice(0, 100),
               }))
             }
+            maxLength={100}
             placeholder="e.g. Implement login"
             className="w-full rounded-xl border border-slate-200 px-4 py-2 text-sm outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20"
           />
@@ -86,9 +87,10 @@ const TaskForm = ({
             onChange={(e) =>
               setForm((prev) => ({
                 ...prev,
-                description: e.target.value,
+                description: e.target.value.slice(0, 100),
               }))
             }
+            maxLength={100}
             placeholder="Short details about the task"
             className="min-h-[70px] w-full rounded-xl border border-slate-200 px-4 py-2 text-sm outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20"
           />
