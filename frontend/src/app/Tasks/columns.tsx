@@ -97,10 +97,6 @@ export const createColumns = (
               value: "Completed",
               label: "Completed",
             },
-            {
-              value: "Overdue",
-              label: "Overdue",
-            },
           ]}
 
           value={task.status}

@@ -35,13 +35,6 @@ export default function SplashScreen({ onFinish }: { onFinish?: () => void }) {
         transition: `opacity ${FADE_DURATION}ms ease-out`,
       }}
     >
-      <div className="mb-6 flex items-center gap-3">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 dark:bg-white/10 backdrop-blur">
-          <ClipboardList size={30} className="text-white" />
-        </div>
-        <h1 className="text-3xl font-bold text-white">ZenTask</h1>
-      </div>
-
       <div className="flex h-48 w-48 items-center justify-center">
         <Lottie
           animationData={completedAnimation}
