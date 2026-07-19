@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
-import PageTitle from "@/components/PageTitle";
+import { useEffect, useMemo, useState } from "react";
+import PageTitle, { type TaskView } from "@/components/PageTitle";
 import DataTable from "@/components/Table";
-import { createColumns } from "./columns";
+import { createColumns, type Task } from "./columns";
 import TaskForm from "./components/TaskForm";
+import TaskGrid from "./components/TaskGrid";
 import ConfirmModal from "@/components/ConfirmationModal";
 import { Trash2 } from "lucide-react";
 import DashboardLayout from "@/components/Layout";
@@ -30,6 +31,12 @@ const TasksPage = () => {
     resetAndClose,
   } = useTasks();
 
+  const [view, setView] = useState<TaskView>("list");
+
+  useEffect(() => {
+    setView(window.innerWidth < 768 ? "grid" : "list");
+  }, []);
+
   const columns = useMemo(
     () => createColumns(updateStatus, openEdit, openDelete),
     [updateStatus, openEdit, openDelete],
@@ -38,9 +45,23 @@ const TasksPage = () => {
   return (
     <DashboardLayout>
       <div className="m-4 gap-4 flex flex-col max-h-screen">
-        <PageTitle title="Tasks" onAddTask={() => setIsAddOpen(true)} />
+        <PageTitle
+          title="Tasks"
+          onAddTask={() => setIsAddOpen(true)}
+          view={view}
+          onViewChange={setView}
+        />
 
-        <DataTable columns={columns} data={tasks} />
+        {view === "list" ? (
+          <DataTable columns={columns} data={tasks} />
+        ) : (
+          <TaskGrid
+            tasks={tasks}
+            onStatusChange={updateStatus}
+            onEdit={openEdit}
+            onDelete={openDelete}
+          />
+        )}
 
         <TaskForm
           open={isAddOpen || isEditOpen}
