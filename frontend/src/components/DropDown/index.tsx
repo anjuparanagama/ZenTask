@@ -47,17 +47,14 @@ export function Dropdown<T extends string = string>({
     width: 0,
   });
 
-  // Client mount for portal
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Find selected option
   const selected = options.find(
     (option) => String(option.value) === String(value),
   );
 
-  // Update dropdown position
   useEffect(() => {
     if (!open || !buttonRef.current) return;
 
@@ -84,7 +81,6 @@ export function Dropdown<T extends string = string>({
     };
   }, [open]);
 
-  // Outside click close
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
@@ -111,7 +107,7 @@ export function Dropdown<T extends string = string>({
       {label && (
         <label
           htmlFor={buttonId}
-          className="text-xs font-medium text-slate-500"
+          className="text-xs font-medium text-slate-500 dark:text-slate-400"
         >
           {label}
         </label>
@@ -125,13 +121,13 @@ export function Dropdown<T extends string = string>({
         onClick={() => setOpen((prev) => !prev)}
         className={`
           flex w-full items-center justify-between
-          rounded-lg border border-slate-200
-          bg-white px-3 py-1
+          rounded-lg border border-slate-200 dark:border-gray-700
+          bg-white dark:bg-gray-800 px-3 py-1
           text-sm font-normal
-          text-slate-800
+          text-slate-800 dark:text-slate-200
           shadow-sm
           transition
-          hover:border-slate-300
+          hover:border-slate-300 dark:hover:border-gray-600
           focus:outline-none
           focus:ring-2
           focus:ring-indigo-500/40
@@ -150,7 +146,7 @@ export function Dropdown<T extends string = string>({
           <span
             className={`
               truncate
-              ${!selected ? "text-slate-400" : "text-slate-800"}
+              ${!selected ? "text-slate-400 dark:text-slate-500" : "text-slate-800 dark:text-slate-200"}
             `}
           >
             {selected ? selected.label : placeholder}
@@ -161,7 +157,7 @@ export function Dropdown<T extends string = string>({
           size={16}
           strokeWidth={2.5}
           className={`
-            text-slate-400
+            text-slate-400 dark:text-slate-500
             transition-transform
             duration-200
             ${open ? "rotate-180" : ""}
@@ -173,6 +169,7 @@ export function Dropdown<T extends string = string>({
         mounted &&
         createPortal(
           <ul
+            onMouseDown={(event) => event.stopPropagation()}
             style={{
               position: "fixed",
               top: position.top,
@@ -185,8 +182,8 @@ export function Dropdown<T extends string = string>({
               overflow-auto
               rounded-xl
               border
-              border-slate-200
-              bg-white
+              border-slate-200 dark:border-gray-700
+              bg-white dark:bg-gray-800
               p-1.5
               shadow-xl
             "
@@ -207,14 +204,14 @@ export function Dropdown<T extends string = string>({
 
                     ${
                       isSelected
-                        ? "bg-green-50 text-green-600 font-medium"
-                        : "text-slate-700"
+                        ? "bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 font-medium"
+                        : "text-slate-700 dark:text-slate-300"
                     }
 
                     ${
                       option.disabled
                         ? "cursor-not-allowed opacity-40"
-                        : "cursor-pointer hover:bg-slate-100"
+                        : "cursor-pointer hover:bg-slate-100 dark:hover:bg-gray-700"
                     }
                   `}
                 >

@@ -42,16 +42,16 @@ export default function DataTable<TData, TValue>({
   return (
     <div className="space-y-5">
       {/* Table Card */}
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id} className="bg-slate-50">
+                <tr key={headerGroup.id} className="bg-slate-50 dark:bg-gray-700/50">
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="px-6 py-3 text-left font-semibold text-slate-600 whitespace-nowrap "
+                      className="px-6 py-3 text-left font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap "
                     >
                       {header.isPlaceholder
                         ? null
@@ -72,16 +72,16 @@ export default function DataTable<TData, TValue>({
                     key={row.id}
                     className="
                       transition-colors
-                      odd:bg-white
-                      even:bg-green-50
-                      hover:bg-teal-50/60
+                      odd:bg-white dark:odd:bg-gray-800
+                      even:bg-green-50 dark:even:bg-gray-700/40
+                      hover:bg-teal-50/60 dark:hover:bg-teal-900/20
                     "
                   >
                     {row.getVisibleCells().map((cell) => (
                       <td
                         key={cell.id}
                         className="
-                          px-6 py-2 text-slate-700 whitespace-nowrap
+                          px-6 py-2 text-slate-700 dark:text-slate-300 whitespace-nowrap
                         "
                       >
                         {flexRender(
@@ -96,7 +96,7 @@ export default function DataTable<TData, TValue>({
                 <tr>
                   <td
                     colSpan={columns.length}
-                    className="py-16 text-center text-slate-400"
+                    className="py-16 text-center text-slate-400 dark:text-slate-500"
                   >
                     No tasks available
                   </td>
@@ -109,13 +109,13 @@ export default function DataTable<TData, TValue>({
 
       {/* Pagination */}
       <div className="flex items-center justify-between">
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Page{" "}
-          <span className="font-semibold text-slate-800">
+          <span className="font-semibold text-slate-800 dark:text-slate-200">
             {table.getState().pagination.pageIndex + 1}
           </span>{" "}
           of{" "}
-          <span className="font-semibold text-slate-800">
+          <span className="font-semibold text-slate-800 dark:text-slate-200">
             {table.getPageCount()}
           </span>
         </p>
@@ -138,7 +138,7 @@ export default function DataTable<TData, TValue>({
                 ${
                   table.getState().pagination.pageIndex === pageIndex
                     ? "bg-teal-500 text-white shadow-sm"
-                    : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+                    : "border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-gray-700"
                 }
               `}
             >

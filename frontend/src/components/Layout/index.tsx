@@ -12,7 +12,7 @@ export default function DashboardLayout({
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="h-screen overflow-hidden bg-gray-50">
+    <div className="h-screen overflow-hidden bg-gray-50 dark:bg-gray-950">
       <SideMenu collapsed={collapsed} setCollapsed={setCollapsed} />
 
       <div

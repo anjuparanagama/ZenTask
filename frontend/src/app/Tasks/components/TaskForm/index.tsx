@@ -43,7 +43,7 @@ const TaskForm = ({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+            className="rounded-lg border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 dark:hover:bg-gray-700"
           >
             Cancel
           </button>
@@ -61,23 +61,24 @@ const TaskForm = ({
     >
       <div className="grid grid-cols-1 gap-4">
         <div className="grid gap-2">
-          <label className="text-xs font-medium text-slate-500">Title</label>
+          <label className="text-xs font-medium text-slate-500 dark:text-slate-400">Title</label>
 
           <input
             value={form.title}
             onChange={(e) =>
               setForm((prev) => ({
                 ...prev,
-                title: e.target.value,
+                title: e.target.value.slice(0, 100),
               }))
             }
+            maxLength={100}
             placeholder="e.g. Implement login"
-            className="w-full rounded-xl border border-slate-200 px-4 py-2 text-sm outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20"
+            className="w-full rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20 text-slate-800 dark:text-slate-200"
           />
         </div>
 
         <div className="grid gap-2">
-          <label className="text-xs font-medium text-slate-500">
+          <label className="text-xs font-medium text-slate-500 dark:text-slate-400">
             Description
           </label>
 
@@ -86,17 +87,18 @@ const TaskForm = ({
             onChange={(e) =>
               setForm((prev) => ({
                 ...prev,
-                description: e.target.value,
+                description: e.target.value.slice(0, 100),
               }))
             }
+            maxLength={100}
             placeholder="Short details about the task"
-            className="min-h-[70px] w-full rounded-xl border border-slate-200 px-4 py-2 text-sm outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20"
+            className="min-h-[70px] w-full rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20 text-slate-800 dark:text-slate-200"
           />
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="grid gap-2">
-            <label className="text-xs font-medium text-slate-500">
+            <label className="text-xs font-medium text-slate-500 dark:text-slate-400">
               Due Date
             </label>
 
@@ -109,12 +111,12 @@ const TaskForm = ({
                   dueDate: e.target.value,
                 }))
               }
-              className="w-full rounded-xl border border-slate-200 px-4 py-2 text-sm outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20"
+              className="w-full rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20 text-slate-800 dark:text-slate-200"
             />
           </div>
 
           <div className="grid gap-2">
-            <label className="text-xs font-medium text-slate-500">
+            <label className="text-xs font-medium text-slate-500 dark:text-slate-400">
               Priority
             </label>
 
@@ -137,7 +139,7 @@ const TaskForm = ({
         </div>
 
         {!isValid && (
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Title and Due Date are required.
           </p>
         )}

@@ -28,6 +28,11 @@ export const createColumns = (
   {
     accessorKey: "description",
     header: "Description",
+    cell: ({ row }) => {
+      const desc = row.original.description;
+      if (desc.length <= 50) return desc;
+      return <span title={desc}>{desc.slice(0, 50)}...</span>;
+    },
   },
 
   {
@@ -92,10 +97,6 @@ export const createColumns = (
               value: "Completed",
               label: "Completed",
             },
-            {
-              value: "Overdue",
-              label: "Overdue",
-            },
           ]}
 
           value={task.status}
@@ -124,8 +125,10 @@ export const createColumns = (
               rounded-lg
               p-2
               text-blue-600
+              dark:text-blue-400
               transition
               hover:bg-blue-50
+              dark:hover:bg-blue-900/30
             "
             title="Edit task"
           >
@@ -137,8 +140,10 @@ export const createColumns = (
             className="
               rounded-lg 
               text-red-600
+              dark:text-red-400
               transition
               hover:bg-red-50
+              dark:hover:bg-red-900/30
             "
             title="Delete task"
           >

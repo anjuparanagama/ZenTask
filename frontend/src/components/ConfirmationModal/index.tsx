@@ -28,18 +28,18 @@ export default function ConfirmModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm px-4">
-      <div className="relative w-full max-w-100 rounded-2xl bg-white p-6 shadow-xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm px-4">
+      <div className="relative w-full max-w-100 rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-xl">
         {icon && <div className="mb-4 flex justify-center">{icon}</div>}
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-slate-900">{title}</h2>
-          <p className="mt-2 text-sm  text-slate-500">{description}</p>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{title}</h2>
+          <p className="mt-2 text-sm  text-slate-500 dark:text-slate-400">{description}</p>
         </div>
 
         <div className="mt-6 grid sm:grid-cols-2 gap-3">
           <button
             onClick={onClose}
-            className="rounded-md border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            className="rounded-md border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-gray-700"
           >
             {cancelText}
           </button>

@@ -13,8 +13,7 @@ export default function StatCard({
 }) {
   return (
     <div
-      className={`group relative h-28 rounded-2xl p-5 overflow-hidden shadow-sm 
-      transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${className}`}
+      className={`group relative h-28 overflow-hidden rounded-2xl p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${className}`}
       style={{
         background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
       }}
@@ -32,10 +31,7 @@ export default function StatCard({
       </svg>
 
       {/* Icon */}
-      <div
-        className="absolute top-5 right-5 flex h-10 w-10 items-center 
-        justify-center rounded-xl bg-white/90 shadow-sm"
-      >
+      <div className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 shadow-sm">
         <Icon
           className="h-5 w-5"
           style={{

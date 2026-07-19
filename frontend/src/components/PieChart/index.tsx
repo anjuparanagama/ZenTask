@@ -9,11 +9,16 @@ import {
   TooltipIndex,
 } from "recharts";
 
-const taskData = [
+export type TaskStatusDatum = {
+  name: string;
+  value: number;
+  fill: string;
+};
+
+const defaultTaskData: TaskStatusDatum[] = [
   { name: "Completed", value: 65, fill: "#10B981" },
   { name: "In Progress", value: 20, fill: "#3B82F6" },
-  { name: "Pending", value: 10, fill: "#F59E0B" },
-  { name: "Overdue", value: 5, fill: "#EF4444" },
+  { name: "To Do", value: 10, fill: "#F59E0B" },
 ];
 
 const renderActiveShape = ({
@@ -114,16 +119,18 @@ const renderActiveShape = ({
 export default function TaskStatusPieChart({
   isAnimationActive = true,
   defaultIndex,
+  data = defaultTaskData,
 }: {
   isAnimationActive?: boolean;
   defaultIndex?: TooltipIndex;
+  data?: TaskStatusDatum[];
 }) {
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm pointer-events-none">
-      <h2 className=" text-lg font-semibold text-gray-800">
+    <div className="rounded-2xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm pointer-events-none">
+      <h2 className=" text-lg font-semibold text-gray-800 dark:text-gray-200">
         Task Status Overview
       </h2>
-      <p className="text-sm font-mono text-gray-500">Tasks grouped by Status</p>
+      <p className="text-sm font-mono text-gray-500 dark:text-gray-400">Tasks grouped by Status</p>
       <div className="flex justify-center">
         <PieChart
           width={420}
@@ -137,7 +144,7 @@ export default function TaskStatusPieChart({
         >
           <Pie
             activeShape={renderActiveShape}
-            data={taskData}
+            data={data}
             cx="50%"
             cy="50%"
             innerRadius={50}
@@ -152,10 +159,10 @@ export default function TaskStatusPieChart({
 
       {/* Legend */}
       <div className="-mt-2 grid grid-cols-2 gap-3 text-sm">
-        {taskData.map((item) => (
+        {data.map((item) => (
           <div
             key={item.name}
-            className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2"
+            className="flex items-center justify-between rounded-lg bg-gray-50 dark:bg-gray-700/50 px-3 py-2"
           >
             <div className="flex items-center gap-2">
               <span
@@ -163,10 +170,10 @@ export default function TaskStatusPieChart({
                 style={{ backgroundColor: item.fill }}
               />
 
-              <span className="text-gray-600">{item.name}</span>
+              <span className="text-gray-600 dark:text-gray-300">{item.name}</span>
             </div>
 
-            <span className="font-semibold text-gray-800">{item.value}</span>
+            <span className="font-semibold text-gray-800 dark:text-gray-200">{item.value}</span>
           </div>
         ))}
       </div>

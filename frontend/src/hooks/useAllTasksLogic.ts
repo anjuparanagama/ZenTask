@@ -1,8 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { tasks as initialTasks } from "@/app/Tasks/data";
+import { useCallback, useEffect, useState } from "react";
 import type { Task } from "@/app/Tasks/columns";
+import {
+  createTask as createTaskApi,
+  deleteTask as deleteTaskApi,
+  getTasks,
+  updateTask as updateTaskApi,
+} from "@/services/task.service";
+import type { TaskInput } from "@/services/task.service";
 
 type TaskPriority = Task["priority"];
 
@@ -21,7 +27,8 @@ const emptyForm: NewTaskForm = {
 };
 
 export default function useTasks() {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -29,25 +36,51 @@ export default function useTasks() {
   const [deletingTask, setDeletingTask] = useState<Task | null>(null);
   const [form, setForm] = useState<NewTaskForm>(emptyForm);
 
-  const nextId = useMemo(() => {
-    const max = tasks.reduce((acc, task) => Math.max(acc, task.id), 0);
-    return max + 1;
-  }, [tasks]);
+  const fetchTasks = useCallback(async () => {
+    try {
+      const data = await getTasks();
+
+      setTasks(data);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
 
   const isValid =
     form.title.trim().length > 0 && form.dueDate.trim().length > 0;
 
-  const updateStatus = (id: number, status: Task["status"]) => {
+  const buildInput = (): TaskInput => ({
+    title: form.title.trim(),
+    description: form.description.trim(),
+    dueDate: form.dueDate,
+    priority: form.priority,
+    status: editingTask?.status ?? "To Do",
+  });
+
+  const updateStatus = async (id: number, status: Task["status"]) => {
+    const target = tasks.find((task) => task.id === id);
+
+    if (!target) return;
+
     setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id
-          ? {
-              ...task,
-              status,
-            }
-          : task,
-      ),
+      prev.map((task) => (task.id === id ? { ...task, status } : task)),
     );
+
+    try {
+      await updateTaskApi(id, {
+        title: target.title,
+        description: target.description,
+        dueDate: target.dueDate,
+        priority: target.priority,
+        status,
+      });
+    } catch {
+      fetchTasks();
+    }
   };
 
   const openEdit = (task: Task) => {
@@ -67,45 +100,30 @@ export default function useTasks() {
     setIsDeleteOpen(true);
   };
 
-  const addTask = () => {
+  const addTask = async () => {
     if (!isValid) return;
 
-    const newTask: Task = {
-      id: nextId,
-      title: form.title.trim(),
-      description: form.description.trim(),
-      dueDate: form.dueDate,
-      priority: form.priority,
-      status: "To Do",
-    };
-
-    setTasks((prev) => [newTask, ...prev]);
+    await createTaskApi(buildInput());
+    await fetchTasks();
 
     resetAndClose();
   };
 
-  const updateTask = () => {
+  const updateTask = async () => {
     if (!editingTask || !isValid) return;
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === editingTask.id
-          ? {
-              ...task,
-              title: form.title.trim(),
-              description: form.description.trim(),
-              dueDate: form.dueDate,
-              priority: form.priority,
-            }
-          : task,
-      ),
-    );
+
+    await updateTaskApi(editingTask.id, buildInput());
+    await fetchTasks();
 
     resetAndClose();
   };
 
-  const deleteTask = () => {
+  const deleteTask = async () => {
     if (!deletingTask) return;
-    setTasks((prev) => prev.filter((task) => task.id !== deletingTask.id));
+
+    await deleteTaskApi(deletingTask.id);
+    await fetchTasks();
+
     resetAndClose();
   };
 
@@ -120,6 +138,7 @@ export default function useTasks() {
 
   return {
     tasks,
+    loading,
     form,
     setForm,
     isAddOpen,
