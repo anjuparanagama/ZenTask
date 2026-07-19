@@ -655,6 +655,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@netlify/plugin-nextjs@npm:^5.15.12":
+  version: 5.15.12
+  resolution: "@netlify/plugin-nextjs@npm:5.15.12"
+  checksum: 10c0/04a9568b366d680d5a2703aeafe0581bc2d36388ef2f944b25a3d1535fe704b313158df262eac91452289aa7decb0dcceea94626a1c38a37eca5eef60da65378
+  languageName: node
+  linkType: hard
+
 "@next/env@npm:16.2.10":
   version: 16.2.10
   resolution: "@next/env@npm:16.2.10"
@@ -2750,6 +2757,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "frontend@workspace:."
   dependencies:
+    "@netlify/plugin-nextjs": "npm:^5.15.12"
     "@recharts/devtools": "npm:^0.0.14"
     "@tailwindcss/postcss": "npm:^4"
     "@tanstack/react-table": "npm:^8.21.3"
