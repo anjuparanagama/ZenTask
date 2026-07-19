@@ -1,13 +1,21 @@
 import express from "express";
+import cors from "cors";
+import path from "path";
 import authRoutes from "./routes/auth.routes";
 import taskRoutes from "./routes/task.routes";
 
 const app = express();
 
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 app.get("/", (_req, res) => {
-  res.send("ZenTask API Running");
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 app.use("/api/auth", authRoutes);

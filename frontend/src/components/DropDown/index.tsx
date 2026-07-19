@@ -173,6 +173,7 @@ export function Dropdown<T extends string = string>({
         mounted &&
         createPortal(
           <ul
+            onMouseDown={(event) => event.stopPropagation()}
             style={{
               position: "fixed",
               top: position.top,

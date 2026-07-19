@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { login } from "@/services/auth.service";
+import { TOKEN_KEY } from "@/lib/api";
 
 interface LoginFormProps {
   onRegister: () => void;
@@ -23,14 +25,16 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
     setLoading(true);
 
     try {
-      if (email && password) {
-        router.push("/Dashboard");
-        return;
-      }
+      const { token } = await login(email, password);
 
-      throw new Error("Please enter your email and password");
+      localStorage.setItem(TOKEN_KEY, token);
+      router.push("/Dashboard");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed");
+      const message =
+        (err as { response?: { data?: { message?: string } } })?.response?.data
+          ?.message || "Login failed";
+
+      setError(message);
       setLoading(false);
     }
   };
@@ -250,7 +254,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
         text-slate-500
       "
       >
-        Don't have an account?
+        Don&apos;t have an account?
         <button
           onClick={onRegister}
           className="

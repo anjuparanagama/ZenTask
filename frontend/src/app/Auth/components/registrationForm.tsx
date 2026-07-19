@@ -1,15 +1,53 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { User, Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { register } from "@/services/auth.service";
+import { login } from "@/services/auth.service";
+import { TOKEN_KEY } from "@/lib/api";
 
 interface RegisterFormProps {
   onLogin: () => void;
 }
 
 export default function RegisterForm({ onLogin }: RegisterFormProps) {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await register(name, email, password);
+      const { token } = await login(email, password);
+
+      localStorage.setItem(TOKEN_KEY, token);
+      router.push("/Dashboard");
+    } catch (err) {
+      const message =
+        (err as { response?: { data?: { message?: string } } })?.response?.data
+          ?.message || "Registration failed";
+
+      setError(message);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -37,7 +75,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
         </p>
       </div>
 
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={handleSubmit}>
         {/* Name */}
 
         <div>
@@ -71,7 +109,10 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
 
             <input
               type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="John Doe"
+              required
               className="
                 w-full
                 bg-transparent
@@ -117,7 +158,10 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
 
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
+              required
               className="
                 w-full
                 bg-transparent
@@ -159,7 +203,10 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
 
             <input
               type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Create password"
+              required
               className="
                 w-full
                 bg-transparent
@@ -209,7 +256,10 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
 
             <input
               type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm password"
+              required
               className="
                 w-full
                 bg-transparent
@@ -230,10 +280,17 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
           </div>
         </div>
 
+        {error && (
+          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
+            {error}
+          </p>
+        )}
+
         {/* Button */}
 
         <button
           type="submit"
+          disabled={loading}
           className="
             mt-3
             flex
@@ -250,9 +307,11 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             transition
             hover:bg-teal-700
             active:scale-[0.98]
+            disabled:cursor-not-allowed
+            disabled:opacity-60
           "
         >
-          Create Account
+          {loading ? "Creating Account..." : "Create Account"}
           <ArrowRight size={18} />
         </button>
       </form>
