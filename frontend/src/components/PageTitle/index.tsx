@@ -48,7 +48,10 @@ const PageTitle = ({
       </div>
       {pathname !== "/Tasks" ? (
         <div className="flex items-center gap-2 sm:border sm:border-gray-200 dark:sm:border-gray-700 rounded-md px-3 py-2 sm:shadow-sm bg-white dark:bg-gray-800">
-          <CalendarDays size={18} className="text-gray-700 dark:text-gray-300" />
+          <CalendarDays
+            size={18}
+            className="text-gray-700 dark:text-gray-300"
+          />
           <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
             {currentTime
               ? format(currentTime, "dd MMMM yyyy, EEEE")
@@ -64,17 +67,15 @@ const PageTitle = ({
           >
             <Plus size={20} /> Add Task
           </button>
-          <div>
-            <button
-              className="flex flex-row gap-2  justify-center items-center  shadow-lg rounded-md bg-linear-to-r from-green-300 to-green-500 px-2 py-1 text-white font-semibold"
-              onClick={() =>
-                onViewChange?.(view === "list" ? "grid" : "list")
-              }
-              title={view === "list" ? "Switch to grid view" : "Switch to list view"}
-            >
-              {view === "list" ? <Grid2X2Plus size={22} /> : <List size={22} />}
-            </button>
-          </div>
+          <button
+            className="flex flex-row gap-2  justify-center items-center  shadow-lg rounded-md bg-linear-to-r from-teal-300 to-teal-500 px-2 py-1 text-white font-semibold"
+            onClick={() => onViewChange?.(view === "list" ? "grid" : "list")}
+            title={
+              view === "list" ? "Switch to grid view" : "Switch to list view"
+            }
+          >
+            {view === "list" ? <Grid2X2Plus size={22} /> : <List size={22} />}
+          </button>
         </div>
       )}
     </div>
