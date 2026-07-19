@@ -9,6 +9,7 @@ import {
   updateTask as updateTaskApi,
 } from "@/services/task.service";
 import type { TaskInput } from "@/services/task.service";
+import { toast } from "sonner";
 
 type TaskPriority = Task["priority"];
 
@@ -39,8 +40,9 @@ export default function useTasks() {
   const fetchTasks = useCallback(async () => {
     try {
       const data = await getTasks();
-
       setTasks(data);
+    } catch {
+      toast.error("Failed to load tasks");
     } finally {
       setLoading(false);
     }
@@ -63,7 +65,6 @@ export default function useTasks() {
 
   const updateStatus = async (id: number, status: Task["status"]) => {
     const target = tasks.find((task) => task.id === id);
-
     if (!target) return;
 
     setTasks((prev) =>
@@ -79,6 +80,7 @@ export default function useTasks() {
         status,
       });
     } catch {
+      toast.error("Failed to update task status");
       fetchTasks();
     }
   };
@@ -91,7 +93,6 @@ export default function useTasks() {
       dueDate: task.dueDate,
       priority: task.priority,
     });
-
     setIsEditOpen(true);
   };
 
@@ -103,28 +104,40 @@ export default function useTasks() {
   const addTask = async () => {
     if (!isValid) return;
 
-    await createTaskApi(buildInput());
-    await fetchTasks();
-
-    resetAndClose();
+    try {
+      await createTaskApi(buildInput());
+      await fetchTasks();
+      toast.success("Task added");
+      resetAndClose();
+    } catch {
+      toast.error("Failed to add task");
+    }
   };
 
   const updateTask = async () => {
     if (!editingTask || !isValid) return;
 
-    await updateTaskApi(editingTask.id, buildInput());
-    await fetchTasks();
-
-    resetAndClose();
+    try {
+      await updateTaskApi(editingTask.id, buildInput());
+      await fetchTasks();
+      toast.success("Task updated");
+      resetAndClose();
+    } catch {
+      toast.error("Failed to update task");
+    }
   };
 
   const deleteTask = async () => {
     if (!deletingTask) return;
 
-    await deleteTaskApi(deletingTask.id);
-    await fetchTasks();
-
-    resetAndClose();
+    try {
+      await deleteTaskApi(deletingTask.id);
+      await fetchTasks();
+      toast.success("Task deleted");
+      resetAndClose();
+    } catch {
+      toast.error("Failed to delete task");
+    }
   };
 
   const resetAndClose = () => {

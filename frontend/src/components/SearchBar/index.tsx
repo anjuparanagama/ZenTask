@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent, type ChangeEvent } from "react";
+import { useState, useEffect, type FormEvent, type ChangeEvent } from "react";
 import { Search, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 
@@ -18,6 +18,11 @@ export default function SearchBar({
   const [query, setQuery] = useState("");
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,8 +69,12 @@ export default function SearchBar({
         className="flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-900/50 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         suppressHydrationWarning
       >
-        {isDark ? (
-          <Sun className="w-4 h-4 text-yellow-500" />
+        {mounted ? (
+          isDark ? (
+            <Sun className="w-4 h-4 text-yellow-500" />
+          ) : (
+            <Moon className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+          )
         ) : (
           <Moon className="w-4 h-4 text-gray-700 dark:text-gray-300" />
         )}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -25,9 +26,8 @@ export default function RootLayout({
         className="h-full overflow-hidden bg-gray-50 dark:bg-gray-950"
         suppressHydrationWarning
       >
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <Toaster position="top-right" richColors />
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
