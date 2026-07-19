@@ -59,6 +59,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
           text-3xl
           font-bold
           text-slate-800
+          dark:text-slate-100
         "
         >
           Create Account
@@ -69,6 +70,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
           mt-2
           text-sm
           text-slate-500
+          dark:text-slate-400
         "
         >
           Join TaskFlow and manage your work smarter
@@ -86,6 +88,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             text-sm
             font-medium
             text-slate-700
+            dark:text-slate-300
           "
           >
             Full Name
@@ -98,6 +101,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             rounded-xl
             border
             border-slate-200
+            dark:border-gray-700
             px-4
             transition
             focus-within:border-teal-500
@@ -105,7 +109,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             focus-within:ring-teal-500/20
           "
           >
-            <User size={18} className="text-slate-400" />
+            <User size={18} className="text-slate-400 dark:text-slate-500" />
 
             <input
               type="text"
@@ -119,6 +123,8 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
                 px-3
                 py-3
                 text-sm
+                text-slate-800
+                dark:text-slate-200
                 outline-none
               "
             />
@@ -135,6 +141,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             text-sm
             font-medium
             text-slate-700
+            dark:text-slate-300
           "
           >
             Email Address
@@ -147,6 +154,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             rounded-xl
             border
             border-slate-200
+            dark:border-gray-700
             px-4
             transition
             focus-within:border-teal-500
@@ -154,7 +162,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             focus-within:ring-teal-500/20
           "
           >
-            <Mail size={18} className="text-slate-400" />
+            <Mail size={18} className="text-slate-400 dark:text-slate-500" />
 
             <input
               type="email"
@@ -168,6 +176,8 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
                 px-3
                 py-3
                 text-sm
+                text-slate-800
+                dark:text-slate-200
                 outline-none
               "
             />
@@ -184,6 +194,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             text-sm
             font-medium
             text-slate-700
+            dark:text-slate-300
           "
           >
             Password
@@ -196,10 +207,11 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             rounded-xl
             border
             border-slate-200
+            dark:border-gray-700
             px-4
           "
           >
-            <Lock size={18} className="text-slate-400" />
+            <Lock size={18} className="text-slate-400 dark:text-slate-500" />
 
             <input
               type={showPassword ? "text" : "password"}
@@ -213,6 +225,8 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
                 px-3
                 py-3
                 text-sm
+                text-slate-800
+                dark:text-slate-200
                 outline-none
               "
             />
@@ -220,7 +234,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="text-slate-400"
+              className="text-slate-400 dark:text-slate-500"
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
@@ -237,6 +251,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             text-sm
             font-medium
             text-slate-700
+            dark:text-slate-300
           "
           >
             Confirm Password
@@ -249,10 +264,11 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             rounded-xl
             border
             border-slate-200
+            dark:border-gray-700
             px-4
           "
           >
-            <Lock size={18} className="text-slate-400" />
+            <Lock size={18} className="text-slate-400 dark:text-slate-500" />
 
             <input
               type={showConfirmPassword ? "text" : "password"}
@@ -266,6 +282,8 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
                 px-3
                 py-3
                 text-sm
+                text-slate-800
+                dark:text-slate-200
                 outline-none
               "
             />
@@ -273,7 +291,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="text-slate-400"
+              className="text-slate-400 dark:text-slate-500"
             >
               {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
@@ -281,7 +299,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
         </div>
 
         {error && (
-          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
+          <p className="rounded-xl bg-red-50 dark:bg-red-900/30 px-4 py-3 text-sm text-red-600 dark:text-red-400">
             {error}
           </p>
         )}
@@ -324,6 +342,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
         text-center
         text-sm
         text-slate-500
+        dark:text-slate-400
       "
       >
         Already have an account?
@@ -333,6 +352,7 @@ export default function RegisterForm({ onLogin }: RegisterFormProps) {
             ml-2
             font-semibold
             text-teal-600
+            dark:text-teal-400
             hover:underline
           "
         >

@@ -29,18 +29,18 @@ const PageTitle = ({ title, description, onAddTask }: PageTitleProps) => {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <h1 className="text-slate-900 bg-clip-text text-2xl font-semibold tracking-tight ">
+        <h1 className="text-slate-900 dark:text-slate-100 bg-clip-text text-2xl font-semibold tracking-tight ">
           {title || "Welcome Back"}
         </h1>
-        <p className=" text-sm text-gray-500 hidden sm:block">
+        <p className=" text-sm text-gray-500 dark:text-gray-400 hidden sm:block">
           {description ||
             "Here is an overview of your dashboard and recent activities."}
         </p>
       </div>
       {pathname !== "/Tasks" ? (
-        <div className="flex items-center gap-2 sm:border sm:border-gray-200 rounded-md px-3 py-2 sm:shadow-sm">
-          <CalendarDays size={18} />
-          <p className="text-sm font-semibold text-gray-700">
+        <div className="flex items-center gap-2 sm:border sm:border-gray-200 dark:sm:border-gray-700 rounded-md px-3 py-2 sm:shadow-sm bg-white dark:bg-gray-800">
+          <CalendarDays size={18} className="text-gray-700 dark:text-gray-300" />
+          <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
             {currentTime
               ? format(currentTime, "dd MMMM yyyy, EEEE")
               : "Loading..."}

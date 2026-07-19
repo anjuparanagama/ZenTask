@@ -29,14 +29,14 @@ export default function SplashScreen({ onFinish }: { onFinish?: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white dark:bg-gray-950"
       style={{
         opacity: fading ? 0 : 1,
         transition: `opacity ${FADE_DURATION}ms ease-out`,
       }}
     >
       <div className="mb-6 flex items-center gap-3">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 dark:bg-white/10 backdrop-blur">
           <ClipboardList size={30} className="text-white" />
         </div>
         <h1 className="text-3xl font-bold text-white">ZenTask</h1>
@@ -51,7 +51,7 @@ export default function SplashScreen({ onFinish }: { onFinish?: () => void }) {
         />
       </div>
 
-      <div className="mt-8 h-1.5 w-40 overflow-hidden rounded-full bg-white/20">
+      <div className="mt-8 h-1.5 w-40 overflow-hidden rounded-full bg-white/20 dark:bg-white/10">
         <div
           className="h-full rounded-full bg-white"
           style={{

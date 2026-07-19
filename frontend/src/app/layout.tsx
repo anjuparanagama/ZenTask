@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import SideMenu from "@/components/SideMenu";
-import SearchBar from "@/components/SearchBar";
-import DashboardLayout from "@/components/Layout";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body
-        className="h-full overflow-hidden bg-gray-50"
+        className="h-full overflow-hidden bg-gray-50 dark:bg-gray-950"
         suppressHydrationWarning
       >
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

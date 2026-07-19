@@ -9,8 +9,8 @@ export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <main className="min-h-screen bg-slate-100 p-6 flex items-center justify-center">
-      <div className="relative w-full rounded-2xl bg-white shadow-2xl">
+    <main className="min-h-screen bg-slate-100 dark:bg-gray-950 p-6 flex items-center justify-center">
+      <div className="relative w-full rounded-2xl bg-white dark:bg-gray-800 shadow-2xl dark:shadow-gray-900/80">
         <div className="grid lg:grid-cols-2 rounded-2xl overflow-hidden">
           <div
             className={`hidden lg:flex items-center justify-center bg-linear-to-br from-teal-600 via-cyan-600 to-sky-700 p-10 ${

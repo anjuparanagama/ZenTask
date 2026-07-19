@@ -49,6 +49,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
           text-3xl
           font-bold
           text-slate-800
+          dark:text-slate-100
         "
         >
           Welcome Back
@@ -59,6 +60,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
           mt-2
           text-sm
           text-slate-500
+          dark:text-slate-400
         "
         >
           Login to access your dashboard
@@ -67,7 +69,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
 
       <form className="space-y-5" onSubmit={handleSubmit}>
         {error && (
-          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
+          <p className="rounded-xl bg-red-50 dark:bg-red-900/30 px-4 py-3 text-sm text-red-600 dark:text-red-400">
             {error}
           </p>
         )}
@@ -82,6 +84,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
             text-sm
             font-medium
             text-slate-700
+            dark:text-slate-300
           "
           >
             Email Address
@@ -94,6 +97,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
             rounded-xl
             border
             border-slate-200
+            dark:border-gray-700
             px-4
             transition
             focus-within:border-teal-500
@@ -101,7 +105,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
             focus-within:ring-teal-500/20
           "
           >
-            <Mail size={18} className="text-slate-400" />
+            <Mail size={18} className="text-slate-400 dark:text-slate-500" />
 
             <input
               type="email"
@@ -115,6 +119,8 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
                 px-3
                 py-3
                 text-sm
+                text-slate-800
+                dark:text-slate-200
                 outline-none
               "
             />
@@ -131,6 +137,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
             text-sm
             font-medium
             text-slate-700
+            dark:text-slate-300
           "
           >
             Password
@@ -143,6 +150,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
             rounded-xl
             border
             border-slate-200
+            dark:border-gray-700
             px-4
             transition
             focus-within:border-teal-500
@@ -150,7 +158,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
             focus-within:ring-teal-500/20
           "
           >
-            <Lock size={18} className="text-slate-400" />
+            <Lock size={18} className="text-slate-400 dark:text-slate-500" />
 
             <input
               type={showPassword ? "text" : "password"}
@@ -164,6 +172,8 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
                 px-3
                 py-3
                 text-sm
+                text-slate-800
+                dark:text-slate-200
                 outline-none
               "
             />
@@ -173,7 +183,9 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
               onClick={() => setShowPassword(!showPassword)}
               className="
                 text-slate-400
+                dark:text-slate-500
                 hover:text-slate-700
+                dark:hover:text-slate-300
               "
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -197,9 +209,10 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
             items-center
             gap-2
             text-slate-600
+            dark:text-slate-400
           "
           >
-            <input type="checkbox" className="rounded" />
+            <input type="checkbox" className="rounded dark:bg-gray-700 dark:border-gray-600" />
             Remember me
           </label>
         </div>
@@ -241,6 +254,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
         text-center
         text-sm
         text-slate-500
+        dark:text-slate-400
       "
       >
         Don&apos;t have an account?
@@ -250,6 +264,7 @@ export default function LoginForm({ onRegister }: LoginFormProps) {
             ml-2
             font-semibold
             text-teal-600
+            dark:text-teal-400
             hover:underline
           "
         >
