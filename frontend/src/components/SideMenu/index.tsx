@@ -14,8 +14,11 @@ import {
   X,
   ChevronsLeft,
   ChevronsRight,
+  Moon,
+  Sun,
   type LucideIcon,
 } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
 
 interface NavItem {
   id: string;
@@ -48,6 +51,10 @@ export default function Sidebar({
 }: SidebarProps) {
   const router = useRouter();
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const openLogoutModal = () => {
     setMobileOpen(false);
@@ -245,6 +252,14 @@ export default function Sidebar({
                   renderNavButton(item, true, true)
                 ),
               )}
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-500 transition-all duration-200 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-100"
+              >
+                {mounted ? (isDark ? <Sun size={18} className="shrink-0" /> : <Moon size={18} className="shrink-0" />) : <Moon size={18} className="shrink-0" />}
+                <span className="whitespace-nowrap">Toggle theme</span>
+              </button>
             </div>
           </div>
         </aside>
@@ -337,6 +352,30 @@ export default function Sidebar({
               renderNavButton(item, true)
             ),
           )}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            title={collapsed ? "Toggle theme" : undefined}
+            className={`group relative flex items-center text-sm font-medium transition-all duration-200 ${
+              collapsed
+                ? "h-11 w-11 justify-center rounded-xl px-0 mx-auto"
+                : "w-full gap-3 rounded-xl px-3 py-2.5"
+            } text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100`}
+          >
+            {mounted ? (isDark ? <Sun size={18} className="shrink-0" /> : <Moon size={18} className="shrink-0" />) : <Moon size={18} className="shrink-0" />}
+            <span
+              className={`whitespace-nowrap overflow-hidden transition-all duration-200 ${
+                collapsed ? "max-w-0 opacity-0" : "max-w-full opacity-100"
+              }`}
+            >
+              Toggle theme
+            </span>
+            {collapsed && (
+              <span className="pointer-events-none absolute left-full ml-2 whitespace-nowrap rounded-lg bg-gray-900 dark:bg-gray-700 px-2 py-1 text-xs text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 z-50">
+                Toggle theme
+              </span>
+            )}
+          </button>
         </div>
       </aside>
     </>
