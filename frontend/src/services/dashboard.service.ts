@@ -44,6 +44,22 @@ export const getDashboardOverdueCount = async (): Promise<{
   };
 };
 
+type CompletedTodayResponse = {
+  completedToday: number | string;
+};
+
+export const getCompletedTodayCount = async (): Promise<{
+  completedToday: number;
+}> => {
+  const { data } = await api.get<CompletedTodayResponse>(
+    "/dashboard/completed-today-count",
+  );
+
+  return {
+    completedToday: Number(data.completedToday),
+  };
+};
+
 export type DashboardPriorityCounts = {
   totalTasks: number;
   highPriorityTasks: number;

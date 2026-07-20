@@ -30,13 +30,32 @@ export const getOverdueTaskCount = async (req: AuthRequest, res: Response) => {
     FROM tasks
     WHERE user_id = ?
       AND due_date < CURDATE()
-      AND status != 'Completed'
+      AND status != 'COMPLETED'
     `,
     [userId],
   );
 
   res.json({
     overdueTasks: rows[0].overdueTasks,
+  });
+};
+
+export const getCompletedTodayCount = async (req: AuthRequest, res: Response) => {
+  const userId = req.user?.id;
+
+  const [rows]: any = await db.query(
+    `
+    SELECT COUNT(*) AS completedToday
+    FROM tasks
+    WHERE user_id = ?
+      AND status = 'COMPLETED'
+      AND DATE(updated_at) = CURDATE()
+    `,
+    [userId],
+  );
+
+  res.json({
+    completedToday: rows[0].completedToday,
   });
 };
 

@@ -8,6 +8,7 @@ import DataTable from "@/components/Table";
 import MiniDashboard from "./MiniDashboard";
 import AnalyticsDashboard from "./AnalyticsDashboard";
 import {
+  getCompletedTodayCount,
   getDashboardOverdueCount,
   getDashboardTaskCounts,
   getDashboardPriorityCounts,
@@ -45,6 +46,7 @@ const index = () => {
   const [priorityCounts, setPriorityCounts] =
     useState<DashboardPriorityCounts | null>(null);
   const [overdueTasks, setOverdueTasks] = useState(0);
+  const [completedToday, setCompletedToday] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -52,17 +54,25 @@ const index = () => {
 
     const loadDashboard = async () => {
       try {
-        const [taskCounts, overdueCount, priorityCount] = await Promise.all([
-          getDashboardTaskCounts(),
-          getDashboardOverdueCount(),
-          getDashboardPriorityCounts(),
-        ]);
+        const [taskCounts, overdueCount, priorityCount] =
+          await Promise.all([
+            getDashboardTaskCounts(),
+            getDashboardOverdueCount(),
+            getDashboardPriorityCounts(),
+          ]);
 
         if (!active) return;
 
         setCounts(taskCounts);
         setPriorityCounts(priorityCount);
         setOverdueTasks(overdueCount.overdueTasks);
+
+        const completedTodayResult = await getCompletedTodayCount().catch(
+          () => ({ completedToday: 0 }),
+        );
+        if (active) {
+          setCompletedToday(completedTodayResult.completedToday);
+        }
       } catch (error) {
         if (!active) return;
 
@@ -79,6 +89,7 @@ const index = () => {
           lowPriorityTasks: 0,
         });
         setOverdueTasks(0);
+        setCompletedToday(0);
       } finally {
         if (active) {
           setLoading(false);
@@ -142,6 +153,7 @@ const index = () => {
           inProgressTasks={counts?.inProgressTasks}
           todoTasks={counts?.todoTasks}
           overdueTasks={overdueTasks}
+          completedToday={completedToday}
           isLoading={loading}
         />
         <AnalyticsDashboard

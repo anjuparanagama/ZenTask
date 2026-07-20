@@ -56,6 +56,21 @@ export default function Sidebar({
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
+  useEffect(() => {
+    if (!mounted) return;
+
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width >= 640 && width < 1280) {
+        setCollapsed(true);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [mounted, setCollapsed]);
+
   const openLogoutModal = () => {
     setMobileOpen(false);
     setLogoutModalOpen(true);

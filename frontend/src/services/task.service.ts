@@ -23,7 +23,7 @@ const normalizeStatus = (raw: RawTask): Task["status"] => {
   if (raw.status === "COMPLETED") return "Completed";
   if (raw.status === "IN_PROGRESS") return "In Progress";
 
-  return raw.due_date < todayAsDateString() ? "Overdue" : "To Do";
+  return "To Do";
 };
 
 const normalizeTask = (raw: RawTask): Task => ({

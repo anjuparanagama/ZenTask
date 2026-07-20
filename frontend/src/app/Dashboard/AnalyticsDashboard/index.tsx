@@ -13,15 +13,17 @@ type AnalyticsDashboardProps = {
   priorityData?: PriorityBarDatum[];
 };
 
-const index = ({ statusData, priorityData }: AnalyticsDashboardProps) => {
+const Index = ({ statusData, priorityData }: AnalyticsDashboardProps) => {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-4 md:flex-row">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
+      <div className=" lg:col-span-2">
         <PieChart data={statusData} />
+      </div>
+      <div className="lg:col-span-3">
         <BarChart data={priorityData} />
       </div>
     </div>
   );
 };
 
-export default index;
+export default Index;

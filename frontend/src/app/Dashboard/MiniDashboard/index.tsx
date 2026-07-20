@@ -4,6 +4,7 @@ import {
   CheckCircle,
   Clock3,
   AlertTriangle,
+  CalendarCheck,
 } from "lucide-react";
 
 type MiniDashboardProps = {
@@ -12,6 +13,7 @@ type MiniDashboardProps = {
   inProgressTasks?: number;
   todoTasks?: number;
   overdueTasks?: number;
+  completedToday?: number;
   isLoading?: boolean;
 };
 
@@ -21,13 +23,14 @@ export default function StatCardRow({
   inProgressTasks = 0,
   todoTasks = 0,
   overdueTasks = 0,
+  completedToday = 0,
   isLoading = false,
 }: MiniDashboardProps) {
   const pendingTasks = inProgressTasks + todoTasks;
   const formatAmount = (value: number) => (isLoading ? "..." : String(value));
 
   return (
-    <div className="grid sm:grid-cols-4 grid-cols-2 gap-4">
+    <div className="grid lg:grid-cols-4 grid-cols-2 gap-4">
       <StatCard
         icon={ClipboardList}
         amount={formatAmount(totalTasks)}
@@ -40,9 +43,9 @@ export default function StatCardRow({
 
       <StatCard
         icon={CheckCircle}
-        amount={formatAmount(completedTasks)}
-        label="Completed Tasks"
-        description="Tasks you have finished"
+        amount={formatAmount(completedToday)}
+        label="Completed Today"
+        description="Tasks finished today"
         gradientFrom="#6ee7b7"
         gradientTo="#059669"
         iconColor="#059669"
