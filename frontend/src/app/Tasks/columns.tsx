@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash2 } from "lucide-react";
 import Dropdown from "@/components/DropDown";
+import { formatDueDate } from "@/lib/formatDate";
 
 export type Task = {
   id: number;
@@ -38,6 +39,7 @@ export const createColumns = (
   {
     accessorKey: "dueDate",
     header: "Due Date",
+    cell: ({ row }) => formatDueDate(row.original.dueDate),
   },
 
   {

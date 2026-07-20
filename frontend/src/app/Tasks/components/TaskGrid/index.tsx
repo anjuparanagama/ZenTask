@@ -3,6 +3,7 @@
 import { Pencil, Trash2 } from "lucide-react";
 import type { Task } from "@/app/Tasks/columns";
 import Dropdown from "@/components/DropDown";
+import { formatDueDate } from "@/lib/formatDate";
 
 interface TaskGridProps {
   tasks: Task[];
@@ -54,7 +55,7 @@ const TaskCard = ({
 
     <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
       <span className="font-medium">Due</span>
-      <span className="font-mono">{task.dueDate}</span>
+      <span className="font-mono">{formatDueDate(task.dueDate)}</span>
     </div>
 
     <div className="flex items-center justify-between gap-3">
