@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import path from "path";
+import fs from "fs";
+
 import authRoutes from "./routes/auth.routes";
 import dashboardRoutes from "./routes/dashboard.controllers";
 import taskRoutes from "./routes/task.routes";
@@ -13,10 +15,15 @@ app.use(
     credentials: true,
   }),
 );
+
 app.use(express.json());
 
+const publicPath = fs.existsSync(path.join(__dirname, "public", "index.html"))
+  ? path.join(__dirname, "public", "index.html")
+  : path.join(process.cwd(), "src/public/index.html");
+
 app.get("/", (_req, res) => {
-  res.sendFile(path.join(__dirname, "./public/index.html"));
+  res.sendFile(publicPath);
 });
 
 app.use("/api/auth", authRoutes);

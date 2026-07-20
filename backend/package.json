@@ -2,7 +2,7 @@
   "name": "backend",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc && copyfiles -u 1 src/public/**/* dist/public",
+    "build": "tsc && copyfiles -u 2 src/public/**/* dist/public",
     "start": "node dist/server.js"
   },
   "dependencies": {
