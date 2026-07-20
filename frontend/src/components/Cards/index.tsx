@@ -10,10 +10,11 @@ export default function StatCard({
   textColor = "#ffffff",
   waveColor = "rgba(255,255,255,0.18)",
   className = "",
+  description = "",
 }) {
   return (
     <div
-      className={`group relative h-28 overflow-hidden rounded-2xl p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${className}`}
+      className={`group relative h-32 overflow-hidden rounded-2xl p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${className}`}
       style={{
         background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
       }}
@@ -60,6 +61,17 @@ export default function StatCard({
           >
             {label}
           </p>
+
+          {description ? (
+            <p
+              className="mt-0.5 text-xs opacity-75"
+              style={{
+                color: textColor,
+              }}
+            >
+              {description}
+            </p>
+          ) : null}
         </div>
       </div>
     </div>

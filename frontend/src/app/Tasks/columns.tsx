@@ -11,7 +11,7 @@ export type Task = {
   description: string;
   dueDate: string;
   priority: "Low" | "Medium" | "High";
-  status: "To Do" | "In Progress" | "Completed" | "Overdue";
+  status: "To Do" | "In Progress" | "Completed";
   onEdit?: () => void;
   onDelete?: () => void;
 };
@@ -25,7 +25,6 @@ export const createColumns = (
     accessorKey: "title",
     header: "Title",
   },
-
   {
     accessorKey: "description",
     header: "Description",
@@ -35,17 +34,14 @@ export const createColumns = (
       return <span title={desc}>{desc.slice(0, 50)}...</span>;
     },
   },
-
   {
     accessorKey: "dueDate",
     header: "Due Date",
     cell: ({ row }) => formatDueDate(row.original.dueDate),
   },
-
   {
     accessorKey: "priority",
     header: "Priority",
-
     cell: ({ row }) => {
       const priority = row.original.priority;
 
@@ -57,65 +53,36 @@ export const createColumns = (
 
       return (
         <span
-          className={`
-          px-3
-          py-1
-          rounded-xl
-          text-center
-          items-center
-          justify-center
-          flex
-          text-sm
-          font-semibold
-          font-mono
-          ${styles[priority]}
-        `}
+          className={`px-3 py-1 rounded-xl text-center items-center justify-center flex text-sm font-semibold font-mono ${styles[priority]}`}
         >
           {priority}
         </span>
       );
     },
   },
-
   {
     accessorKey: "status",
     header: "Status",
-
     cell: ({ row }) => {
       const task = row.original;
 
       return (
         <Dropdown
           options={[
-            {
-              value: "To Do",
-              label: "To Do",
-            },
-            {
-              value: "In Progress",
-              label: "In Progress",
-            },
-            {
-              value: "Completed",
-              label: "Completed",
-            },
+            { value: "To Do", label: "To Do" },
+            { value: "In Progress", label: "In Progress" },
+            { value: "Completed", label: "Completed" },
           ]}
-
           value={task.status}
-
-          onChange={(value) => updateStatus(task.id, value)}
-
+          onChange={(value: Task["status"]) => updateStatus(task.id, value)}
           className="w-40"
         />
       );
     },
   },
-
   {
     id: "actions",
-
     header: "Actions",
-
     cell: ({ row }) => {
       const task = row.original;
 
@@ -123,15 +90,7 @@ export const createColumns = (
         <div className="flex items-center gap-2">
           <button
             onClick={() => onEdit(task)}
-            className="
-              rounded-lg
-              p-2
-              text-blue-600
-              dark:text-blue-400
-              transition
-              hover:bg-blue-50
-              dark:hover:bg-blue-900/30
-            "
+            className="rounded-lg p-2 text-blue-600 dark:text-blue-400 transition hover:bg-blue-50 dark:hover:bg-blue-900/30"
             title="Edit task"
           >
             <Pencil size={18} />
@@ -139,14 +98,7 @@ export const createColumns = (
 
           <button
             onClick={() => onDelete(task)}
-            className="
-              rounded-lg 
-              text-red-600
-              dark:text-red-400
-              transition
-              hover:bg-red-50
-              dark:hover:bg-red-900/30
-            "
+            className="rounded-lg p-2 text-red-600 dark:text-red-400 transition hover:bg-red-50 dark:hover:bg-red-900/30"
             title="Delete task"
           >
             <Trash2 size={18} />

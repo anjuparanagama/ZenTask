@@ -22,7 +22,6 @@ const STATUS_OPTIONS = [
   { value: "To Do", label: "To Do" },
   { value: "In Progress", label: "In Progress" },
   { value: "Completed", label: "Completed" },
-  { value: "Overdue", label: "Overdue" },
 ] as const;
 
 const TaskCard = ({

@@ -32,6 +32,7 @@ export default function StatCardRow({
         icon={ClipboardList}
         amount={formatAmount(totalTasks)}
         label="Total Tasks"
+        description="All tasks in your workspace"
         gradientFrom="#60a5fa"
         gradientTo="#2563eb"
         iconColor="#2563eb"
@@ -41,6 +42,7 @@ export default function StatCardRow({
         icon={CheckCircle}
         amount={formatAmount(completedTasks)}
         label="Completed Tasks"
+        description="Tasks you have finished"
         gradientFrom="#6ee7b7"
         gradientTo="#059669"
         iconColor="#059669"
@@ -50,6 +52,7 @@ export default function StatCardRow({
         icon={Clock3}
         amount={formatAmount(pendingTasks)}
         label="Pending Tasks"
+        description="Tasks still in progress or to do"
         gradientFrom="#fde68a"
         gradientTo="#f59e0b"
         iconColor="#f59e0b"
@@ -59,6 +62,7 @@ export default function StatCardRow({
         icon={AlertTriangle}
         amount={formatAmount(overdueTasks)}
         label="Overdue Tasks"
+        description="Tasks past their due date"
         gradientFrom="#fca5a5"
         gradientTo="#dc2626"
         iconColor="#dc2626"

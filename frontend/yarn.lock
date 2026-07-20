@@ -768,17 +768,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@recharts/devtools@npm:^0.0.14":
-  version: 0.0.14
-  resolution: "@recharts/devtools@npm:0.0.14"
-  peerDependencies:
-    react: ^18.0.0 || ^19.0.0
-    react-dom: ^18.0.0 || ^19.0.0
-    recharts: ^3.8.0
-  checksum: 10c0/29e915f76bb69cd4ec5a819a4395c890228efe480ea507084d9d63c85cd1c89d5293f57ebe2fd2f3f01effb63ae56157fa2159799abe89116c8e905223f9ee92
-  languageName: node
-  linkType: hard
-
 "@reduxjs/toolkit@npm:^1.9.0 || 2.x.x":
   version: 2.12.0
   resolution: "@reduxjs/toolkit@npm:2.12.0"
@@ -2758,7 +2747,6 @@ __metadata:
   resolution: "frontend@workspace:."
   dependencies:
     "@netlify/plugin-nextjs": "npm:^5.15.12"
-    "@recharts/devtools": "npm:^0.0.14"
     "@tailwindcss/postcss": "npm:^4"
     "@tanstack/react-table": "npm:^8.21.3"
     "@types/node": "npm:^20"
@@ -2780,7 +2768,6 @@ __metadata:
     sonner: "npm:^2.0.7"
     tailwindcss: "npm:^4"
     typescript: "npm:^5"
-    zustand: "npm:^5.0.14"
   languageName: unknown
   linkType: soft
 
@@ -5107,26 +5094,5 @@ __metadata:
   version: 4.4.3
   resolution: "zod@npm:4.4.3"
   checksum: 10c0/7ea31b558e88f9faf44f31dd185e2e1cbf51fed3081787fb96cc2534749b50c0acfc6da7f0922a7353ed092dd358c7d50c28ea96c94d04af64191bd33152eca3
-  languageName: node
-  linkType: hard
-
-"zustand@npm:^5.0.14":
-  version: 5.0.14
-  resolution: "zustand@npm:5.0.14"
-  peerDependencies:
-    "@types/react": ">=18.0.0"
-    immer: ">=9.0.6"
-    react: ">=18.0.0"
-    use-sync-external-store: ">=1.2.0"
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-    immer:
-      optional: true
-    react:
-      optional: true
-    use-sync-external-store:
-      optional: true
-  checksum: 10c0/89de0c8119f1e0861b2f896a0b4df0d67994a373ecee02628d4e7b97cee1885207f646917d3ede395c3a5083316d48846855cfbc84aced7cd23a6db3238930a8
   languageName: node
   linkType: hard
