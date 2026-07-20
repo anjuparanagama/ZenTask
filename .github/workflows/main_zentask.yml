@@ -12,9 +12,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     permissions:
       contents: read #This is required for actions/checkout
-
+      
+    defaults:
+      run:
+        working-directory: backend
+        
     steps:
       - uses: actions/checkout@v4
 
@@ -22,8 +27,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
+          cache: "yarn"
+          cache-dependency-path: backend/yarn.lock
 
-      - name: npm install, build, and test
+      - name: install, build, and test
         run: |
           yarn install
           yarn build
