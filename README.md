@@ -1,6 +1,6 @@
 # ZenTask
 
-> Task & Analytics Management System — a full-stack application to create, organize, and analyze your tasks with rich dashboards and insights.
+> Task & Analytics Management System — a full-stack application to create, organize and analyze your tasks with rich dashboards and insights.
 
 ZenTask lets users register, manage tasks (with priority, status, and due dates), and view analytics such as completion rates, overdue tasks, and priority breakdowns.
 
