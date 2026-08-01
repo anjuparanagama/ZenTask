@@ -23,7 +23,7 @@ ZenTask lets users register, manage tasks (with priority, status, and due dates)
 ## Tech Stack Summary
 
 ### Frontend
-- **Next.js 16 (App Router) + React 19** — Modern React framework providing SSR/SSG, file-based routing, and fast refresh. React 19 is used for the latest concurrent features.
+- **Next.js 16 (App Router) + React 19** — Modern React framework providing SSR/SSG, file-based routing and fast refresh. React 19 is used for the latest concurrent features.
 - **TypeScript** — End-to-end type safety across the codebase.
 - **Tailwind CSS v4** — Utility-first styling for rapid, consistent UI development.
 - **TanStack Table** — Headless, powerful table primitives for the task data grid.
